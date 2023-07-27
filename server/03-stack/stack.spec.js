@@ -1,3 +1,9 @@
+describe("the stack canary spec", () => {
+  it("shows the infrastructure works", () => {
+    expect(true).toBe(true);
+  });
+});
+
 const stackFactory = (capacity = 2) => {
   if (capacity < 1) throw new Error("invalid capacity");
   let elements = [];
