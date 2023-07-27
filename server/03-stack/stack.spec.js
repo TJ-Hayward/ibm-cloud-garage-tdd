@@ -1,10 +1,14 @@
+const { beforeEach } = require("node:test");
+
 const stackFactory = () => {
   let empty = true;
+  let count = 0;
   return {
     isEmpty: () => empty,
-    size: () => 0,
+    size: () => count,
     push: () => {
       empty = false;
+      count += 1;
     },
   };
 };
@@ -12,6 +16,9 @@ const stackFactory = () => {
 let stack = stackFactory();
 
 describe("the stack canary spec", () => {
+  beforeEach(() => {
+    stack = stackFactory();
+  });
   it("shows the infrastructure works", () => {
     expect(true).toBe(true);
   });
@@ -19,16 +26,23 @@ describe("the stack canary spec", () => {
 
 describe("a stack", () => {
   it("starts empty", () => {
+    stack = stackFactory();
     expect(stack.isEmpty()).toBe(true);
   });
   it("starts with stack size of 0", () => {
+    stack = stackFactory();
     expect(stack.size()).toBe(0);
   });
   it("is not empty when pushed", () => {
+    stack = stackFactory();
     stack.push();
     expect(stack.isEmpty()).toBe(false);
   });
-  it.todo("stack size is 1 when pushed");
+  it("stack size is 1 when pushed", () => {
+    stack = stackFactory();
+    stack.push();
+    expect(stack.size()).toBe(1);
+  });
   it.todo("stack is empty when pushed and popped");
   it.todo("stack size is 0 when pushed and popped");
   it.todo("throws overflow error when pushing to a stack at full capacity");
